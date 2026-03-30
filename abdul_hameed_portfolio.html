@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdul Hameed V — Python Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2D5B;
+    --rust: #8B3A2A;
+    --gold: #C8963E;
+    --cream: #F5F0E8;
+    --dark: #0D1B36;
+    --text: #2C2C2C;
+    --muted: #6B7280;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13, 27, 54, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200, 150, 62, 0.15);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.7);
+    text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 6rem 4rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,58,42,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 5%; left: 5%;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(27,45,91,0.5) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-text { z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid var(--gold);
+    padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900;
+    line-height: 1; color: var(--white);
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+  .hero-name span { color: var(--gold); }
+  .hero-title {
+    font-size: 1.15rem; font-weight: 300; color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em; margin-bottom: 2rem;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+  .hero-desc {
+    font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.75);
+    max-width: 480px; margin-bottom: 2.5rem;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+  .btn {
+    padding: 0.85rem 2rem; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: all 0.3s; display: inline-block;
+  }
+  .btn-primary {
+    background: var(--rust); color: var(--white);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 1;
+    animation: fadeIn 1s ease 0.5s both;
+  }
+  .hero-card {
+    background: linear-gradient(135deg, rgba(27,45,91,0.8), rgba(139,58,42,0.3));
+    border: 1px solid rgba(200,150,62,0.3);
+    border-radius: 4px; padding: 3rem 2.5rem;
+    text-align: center; max-width: 340px;
+    backdrop-filter: blur(20px);
+    position: relative;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; top: -2px; left: 20%; right: 20%;
+    height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .avatar-ring {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 3px solid var(--gold);
+    margin: 0 auto 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 900; color: var(--gold);
+    background: var(--dark);
+    position: relative;
+  }
+  .avatar-ring::after {
+    content: '';
+    position: absolute; inset: -8px;
+    border-radius: 50%; border: 1px solid rgba(200,150,62,0.3);
+  }
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem; margin-top: 1.5rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--gold);
+    display: block;
+  }
+  .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+    opacity: 0; transform: translateY(20px); transition: all 0.6s;
+  }
+  .section-label.visible { opacity: 1; transform: translateY(0); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700;
+    color: var(--white); margin-bottom: 3.5rem;
+    opacity: 0; transform: translateY(20px); transition: all 0.6s 0.1s;
+  }
+  .section-title.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── ABOUT ── */
+  .about { background: rgba(27,45,91,0.15); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .about-text p {
+    font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.75);
+    margin-bottom: 1.2rem;
+  }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    padding: 0.4rem 0.9rem; border: 1px solid rgba(200,150,62,0.4);
+    color: var(--gold); border-radius: 2px;
+  }
+  .info-list { list-style: none; }
+  .info-list li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .info-list li:last-child { border-bottom: none; }
+  .info-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .info-content strong { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.2rem; }
+  .info-content span { font-size: 0.9rem; color: rgba(255,255,255,0.75); }
+
+  /* ── SKILLS ── */
+  .skills { background: var(--dark); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .skill-card {
+    background: rgba(27,45,91,0.3);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem 1.8rem; border-radius: 4px;
+    transition: all 0.3s; position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(30px); transition: opacity 0.5s, transform 0.5s, border-color 0.3s, background 0.3s;
+  }
+  .skill-card.visible { opacity: 1; transform: translateY(0); }
+  .skill-card:hover { border-color: rgba(200,150,62,0.4); background: rgba(27,45,91,0.5); }
+  .skill-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--rust), var(--gold));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+  }
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .skill-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem;
+  }
+  .skill-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ── EXPERIENCE ── */
+  .experience { background: rgba(27,45,91,0.1); }
+  .timeline { position: relative; padding-left: 2.5rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(180deg, var(--gold), transparent);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 3.5rem;
+    opacity: 0; transform: translateX(-20px); transition: all 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute; left: -2.9rem; top: 0.4rem;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--dark);
+    box-shadow: 0 0 0 3px rgba(200,150,62,0.2);
+  }
+  .timeline-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; color: var(--gold); letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem;
+  }
+  .timeline-company { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+  .timeline-duties { list-style: none; }
+  .timeline-duties li {
+    font-size: 0.9rem; color: rgba(255,255,255,0.7); padding: 0.3rem 0;
+    padding-left: 1.2rem; position: relative; line-height: 1.7;
+  }
+  .timeline-duties li::before {
+    content: '▸'; position: absolute; left: 0; color: var(--rust); font-size: 0.8rem;
+  }
+
+  /* ── PROJECT ── */
+  .project-card {
+    background: linear-gradient(135deg, rgba(27,45,91,0.5), rgba(139,58,42,0.2));
+    border: 1px solid rgba(200,150,62,0.25); border-radius: 4px;
+    padding: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    position: relative; overflow: hidden;
+  }
+  .project-card::after {
+    content: 'PROJECT';
+    position: absolute; right: -20px; top: 50%; transform: translateY(-50%) rotate(90deg);
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; font-weight: 900; color: rgba(200,150,62,0.04);
+    pointer-events: none;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem;
+  }
+  .project-meta { font-size: 0.8rem; color: var(--gold); margin-bottom: 1.5rem; font-family: 'DM Mono', monospace; letter-spacing: 0.1em; }
+  .project-desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 1.5rem; }
+  .project-modules h4 {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .module-item {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  .module-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; padding: 0.2rem 0.6rem;
+    background: rgba(139,58,42,0.4); border: 1px solid var(--rust);
+    color: var(--gold); white-space: nowrap; flex-shrink: 0;
+    letter-spacing: 0.08em;
+  }
+  .module-text { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .tech-stack { }
+  .tech-stack h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 1rem; }
+  .tech-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .tech-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; padding: 0.4rem 1rem;
+    background: rgba(27,45,91,0.6); border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── EDUCATION ── */
+  .education { background: var(--dark); }
+  .edu-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .edu-card {
+    background: rgba(27,45,91,0.25); border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem 1.8rem; position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px); transition: all 0.5s;
+  }
+  .edu-card.visible { opacity: 1; transform: translateY(0); }
+  .edu-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900;
+    color: rgba(200,150,62,0.15); position: absolute; top: 0.5rem; right: 1rem;
+    line-height: 1;
+  }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem;
+    position: relative;
+  }
+  .edu-institution { font-size: 0.85rem; color: var(--gold); margin-bottom: 0.5rem; }
+  .edu-detail { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+
+  /* ── CERTIFICATIONS ── */
+  .certs { background: rgba(27,45,91,0.1); }
+  .cert-list { display: flex; flex-direction: column; gap: 1rem; }
+  .cert-item {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.2rem 1.8rem;
+    background: rgba(27,45,91,0.3); border: 1px solid rgba(255,255,255,0.07);
+    transition: border-color 0.3s;
+    opacity: 0; transform: translateX(-20px); transition: all 0.5s;
+  }
+  .cert-item.visible { opacity: 1; transform: translateX(0); }
+  .cert-item:hover { border-color: rgba(200,150,62,0.3); }
+  .cert-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: rgba(200,150,62,0.25);
+    min-width: 3rem;
+  }
+  .cert-name { font-size: 0.95rem; font-weight: 500; color: var(--white); }
+  .cert-issuer { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+
+  /* ── CLIENTS ── */
+  .clients { background: var(--dark); }
+  .client-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .client-card {
+    border: 1px solid rgba(200,150,62,0.2); padding: 2.5rem;
+    text-align: center; transition: all 0.3s;
+    opacity: 0; transform: translateY(20px); transition: all 0.5s;
+  }
+  .client-card.visible { opacity: 1; transform: translateY(0); }
+  .client-card:hover { background: rgba(27,45,91,0.3); border-color: var(--gold); transform: translateY(-4px); }
+  .client-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .client-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+  .client-loc { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 0.3rem; }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: linear-gradient(135deg, rgba(27,45,91,0.5) 0%, rgba(13,27,54,0.9) 100%);
+    border-top: 1px solid rgba(200,150,62,0.2);
+  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .contact-intro {
+    font-size: 1.05rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 2rem;
+  }
+  .contact-items { list-style: none; }
+  .contact-items li {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.9rem; color: rgba(255,255,255,0.75);
+  }
+  .contact-items li:last-child { border-bottom: none; }
+  .contact-items .ci { font-size: 1.1rem; }
+  .contact-items a { color: rgba(255,255,255,0.75); text-decoration: none; }
+  .contact-items a:hover { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.8rem; color: rgba(255,255,255,0.3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero, section { padding: 5rem 1.5rem 4rem; }
+    .hero { grid-template-columns: 1fr; gap: 3rem; }
+    .about-grid, .project-card, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid, .edu-grid, .client-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AH·V</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Python Full Stack Developer</div>
+    <h1 class="hero-name">Abdul<br><span>Hameed</span> V</h1>
+    <p class="hero-title">Building Web Experiences · Kerala, India</p>
+    <p class="hero-desc">
+      A developer with over a decade of cross-cultural business experience, now fully committed to crafting robust full-stack web applications with Python Django and modern frontend technologies.
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">View Experience</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="avatar-ring">AH</div>
+      <p style="font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:#fff;">Abdul Hameed V</p>
+      <p style="font-size:0.8rem; color:rgba(255,255,255,0.5); margin-top:0.3rem;">Full Stack Developer · Malappuram, Kerala</p>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">Months Dev</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Clients</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Certs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="section-label">01 / Who I Am</p>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I am a Python Full Stack Developer with a background that spans IT, retail management, mobile phone repair, and office administration. Having lived and worked in Saudi Arabia for over a decade, I bring a unique blend of technical skills and real-world business sense.
+      </p>
+      <p>
+        At 40, I returned to India with a clear goal: to establish a career in software development. I completed a 6-month internship at Softroniics, Perinthalmanna, where I developed a real-world school management system. I am currently pursuing a BBA through Mangalyatan University and continuously sharpening my technical skills.
+      </p>
+      <p>
+        I am a fast learner who embraces new technology, maintains a positive mindset, and is committed to seeing every project through to completion.
+      </p>
+      <div class="about-tags">
+        <span class="tag">Quick Learner</span>
+        <span class="tag">Problem Solver</span>
+        <span class="tag">Positive Mindset</span>
+        <span class="tag">Cross-Cultural Experience</span>
+        <span class="tag">Results-Driven</span>
+      </div>
+    </div>
+    <ul class="info-list">
+      <li>
+        <span class="info-icon">📍</span>
+        <div class="info-content">
+          <strong>Location</strong>
+          <span>Malappuram, Kerala, India — 679338</span>
+        </div>
+      </li>
+      <li>
+        <span class="info-icon">🎓</span>
+        <div class="info-content">
+          <strong>Education</strong>
+          <span>BBA – Mangalyatan University (Ongoing)</span>
+        </div>
+      </li>
+      <li>
+        <span class="info-icon">💼</span>
+        <div class="info-content">
+          <strong>Experience</strong>
+          <span>6 months Internship + 10+ years Business Ops</span>
+        </div>
+      </li>
+      <li>
+        <span class="info-icon">  
+        <div class="info-content">
+          <strong>Languages</strong>
+          <span>English, Malayalam, Arabic</span>
+        </div>
+      </li>
+      <li>
+        <span class="info-icon">🔗</span>
+        <div class="info-content">
+          <strong>LinkedIn</strong>
+          <span>linkedin.com/in/abdul-hameed-vly7</span>
+	<div >     <span class="info-icon">🔗</span>
+        <div class="info-content">
+          <strong>mun</strong>
+          <span><a href="https://kindergarden-main-2.onrender.com/"><i><p class="info-icon" color="white"><b>mun.com</p></i></span>  </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <p class="section-label">02 / What I Know</p>
+  <h2 class="section-title">Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Python & Django</div>
+      <div class="skill-desc">Backend development, REST APIs, ORM, authentication, and full MVC architecture using the Django framework.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-name">Frontend Dev</div>
+      <div class="skill-desc">Responsive UI development using HTML5, CSS3, Bootstrap, and JavaScript for dynamic, cross-browser interfaces.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">Databases</div>
+      <div class="skill-desc">Schema design, queries, and database management using MySQL and SQLite.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🚀</div>
+      <div class="skill-name">Deployment</div>
+      <div class="skill-desc">Web application deployment, server configuration, version updates, and post-launch maintenance and support.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Data Analysis</div>
+    <div class="skill-card">
+      <div class="skill-icon">🖥️</div>
+      <div class="skill-name">MS Office & Design</div>
+      <div class="skill-desc">Microsoft Office Suite for data management and reporting, plus graphic design skills for digital content.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <p class="section-label">03 / Career Journey</p>
+  <h2 class="section-title">Work Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Feb 2024 — March 2026 <"Take One year  Career Break to  Visit Saudi Arabia . After it Re join at softroniics "></div>
+      <div class="timeline-role">Python Full Stack Developer Intern</div>
+      <div class="timeline-company">Softroniics · Perinthalmanna, Kerala, India</div>
+      <ul class="timeline-duties">
+        <li>Designed and developed responsive frontend interfaces using HTML, CSS, JavaScript, and Bootstrap</li>
+        <li>Built and maintained backend logic and RESTful APIs using Python Django</li>
+        <li>Constructed and managed MySQL databases including schema design and data integrity</li>
+        <li>Handled application deployment and post-launch technical support</li>
+        <li>Performed version updates and ongoing application maintenance</li>
+        <li>Delivered a complete school management system for a real client within 2 months</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Jun 2013 — Sep 2025 (with breaks)</div>
+      <div class="timeline-role">Sales In-Charge</div>
+      <div class="timeline-company">Haneen Retail Center · Jeddah, Kingdom of Saudi Arabia</div>
+      <ul class="timeline-duties">
+        <li>Managed daily retail shop operations and staff coordination</li>
+        <li>Oversaw inventory procurement, stock control, and supply chain</li>
+        <li>Handled basic accounting, financial records, and cash management</li>
+        <li>Maintained sales databases and prepared business reports</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2012 — 2013</div>
+      <div class="timeline-role">Junior Mobile Phone Technician</div>
+      <div class="timeline-company">Globous Telecommunication Institute · Kottakkal, Kerala</div>
+      <ul class="timeline-duties">
+        <li>Diagnosed and repaired mobile handsets, identifying hardware faults</li>
+        <li>Advised customers on repair risks for critical components (Power IC, CPU)</li>
+        <li>Prepared repair quotations and managed customer communication</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2011 — 2012</div>
+      <div class="timeline-role">Office Assistant cum Data Manager</div>
+      <div class="timeline-company">Entry-level Administrative Role</div>
+      <ul class="timeline-duties">
+        <li>Managed incoming/outgoing mail and telephone communications</li>
+        <li>Updated and maintained databases using MS Excel</li>
+        <li>Handled CMS updates and general office administration</li>
+        <li>Covered office management duties in the absence of the General Manager</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT -->
+<section id="project" style="padding: 6rem 4rem; background: rgba(27,45,91,0.1);">
+  <p class="section-label">04 / Featured Work</p>
+  <h2 class="section-title">Key Project</h2>
+  <div class="project-card">
+    <div>
+      <div class="project-title">School Management System</div>
+      <div class="project-meta">MUN VENGAD MELMURY · AUG 2024  - March 2026</div>
+      <p class="project-desc">
+        A multi-user web application built to manage school operations with role-based access control. Designed to meet the client's requirement for secure, compartmentalised access where all financial authority rests with the admin.
+      </p>
+      <div class="project-modules">
+        <h4>User Modules</h4>
+        <div class="module-item">
+          <span class="module-badge">ADMIN</span>
+          <p class="module-text">Super user with full CRUD access across all modules and sole authority over all financial transactions.</p>
+        </div>
+        <div class="module-item">
+          <span class="module-badge">TEACHER</span>
+          <p class="module-text">Can mark student attendance and assign homework to students.</p>
+        </div>
+        <div class="module-item">
+          <span class="module-badge">PARENT</span>
+          <p class="module-text">Can view student attendance, performance sheets, and fee details.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tech-stack" style="align-self: start; padding-top: 1rem;">
+      <h4>Technology Stack</h4>
+      <div class="tech-pills">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">Django</span>
+        <span class="tech-pill">HTML5</span>
+        <span class="tech-pill">CSS3</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">Bootstrap</span>
+        <span class="tech-pill">MySQL</span>
+      </div>
+      <div style="margin-top: 2.5rem; padding: 1.5rem; background: rgba(200,150,62,0.08); border-left: 3px solid var(--gold);">
+        <p style="font-size:0.82rem; color:rgba(255,255,255,0.6); line-height:1.7;">
+          This project demonstrates full-stack capability — from database schema design to frontend UI and deployment — delivered within a 2-month timeline for a real client.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <p class="section-label">05 / Academic Background</p>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2027</div>
+      <div class="edu-degree">Bachelor of Business Administration</div>
+      <div class="edu-institution">Mangalyatan University</div>
+      <div class="edu-detail">Online Stream · 2024–2027 · Currently in 2nd Year</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2007</div>
+      <div class="edu-degree">Higher Secondary — Commerce</div>
+      <div class="edu-institution">Majlis HSS, Malappuram</div>
+      <div class="edu-detail">Commerce with Computer Application · Score: 62%</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2005</div>
+      <div class="edu-degree">SSLC — General Education</div>
+      <div class="edu-institution">Majlis HSS, Malappuram</div>
+      <div class="edu-detail">General Education · Score: 54%</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs" id="certifications">
+  <p class="section-label">06 / Credentials</p>
+  <h2 class="section-title">Certifications</h2>
+  <div class="cert-list">
+    <div class="cert-item">
+      <div class="cert-num">01</div>
+      <div>
+        <div class="cert-name">Prompt Engineering for ChatGPT</div>
+        <div class="cert-issuer">Great Learning Academy · May 2024</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-num">02</div>
+      <div>
+        <div class="cert-name">Python Fundamentals for Beginners</div>
+        <div class="cert-issuer">Great Learning Academy · June 2024</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-num">03</div>
+      <div>
+        <div class="cert-name">Certificate of Internship — Python Full Stack Developer</div>
+        <div class="cert-issuer">Softroniics, Perinthalmanna · August 2024 · ISO 9001:2015 Certified Institute</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients" id="clients">
+  <p class="section-label">07 / Who I've Worked With</p>
+  <h2 class="section-title">Notable Clients</h2>
+  <div class="client-grid">
+    <div class="client-card">
+      <div class="client-icon">🏫</div>
+      <div class="client-name">Mun Melmury</div>
+      <div class="client-loc">School Management System · Kerala, India</div>
+    </div>
+    <div class="client-card">
+      <div class="client-icon">✈️</div>
+      <div class="client-name">Ewan Tours & Travels</div>
+      <div class="client-loc">Travel Industry · Web Project</div>
+    </div>
+    <div class="client-card">
+      <div class="client-icon">🛍️</div>
+      <div class="client-name">Haneen Retail Center</div>
+      <div class="client-loc">Retail Operations · Jeddah, KSA</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label">08 / Let's Connect</p>
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-intro">
+        I am actively seeking opportunities in the IT sector as a Python Full Stack Developer. Whether you have a project, a job opening, or simply want to connect — I would love to hear from you.
+      </p>
+      <a href="mailto:hameed.val.vgd@gmail.com" class="btn btn-primary">Send an Email</a>
+    </div>
+    <ul class="contact-items">
+      <li>
+        <span class="ci">📞</span>
+        <div>
+          <div>+91 8113044022 (India)</div>
+          <div style="margin-top:0.2rem; font-size:0.82rem; color:rgba(255,255,255,0.45);">+966 551087705 (KSA)</div>
+        </div>
+      </li>
+      <li><span class="ci">✉️</span><a href="mailto:hameed.val.vgd@gmail.com">hameed.val.vgd@gmail.com</a></li>
+      <li><span class="ci">✉️</span><a href="mailto:hameedbrcmp777@gmail.com">hameedbrcmp777@gmail.com</a></li>
+      <li><span class="ci">🔗</span><a href="https://www.linkedin.com/in/abdul-hameed-vly7" target="_blank">linkedin.com/in/abdul-hameed-vly7</a></li>
+      <li><span class="ci">🔗</span><a href="https://github.com/Hameedv777" target="_blank">linkedin.com/in/abdul-hameed-vly7Github</a></li>
+      
+      <li><span class="ci">🔗</span><a href=" https://kindergarden-main-2.onrender.com/" target="_blank">  </a>   
+ 	<li><span class="ci">📍</span><span>Malappuram, Kerala, India – 679338</span></li>
+    </ul><
+  </div>
+</section>  
+
+<footer>
+  <p>© 2025 Abdul Hameed V · Python Full Stack Developer · Built with passion from Kerala, India</p>
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section-label, .section-title, .skill-card, .timeline-item, .edu-card, .cert-item, .client-card').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 100;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
