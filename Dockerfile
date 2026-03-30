@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-COPY . /usr/share/nginx/html
+COPY abdul_hameed_portfolio.html /usr/share/nginx/html/index.html
 
 EXPOSE 80
 
